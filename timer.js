@@ -1,83 +1,92 @@
- 
+// class Slider {
+// 	constructor() {
 
-class Timer {
-    constructor (mins) {
-        this.mins = mins;
-        this.secs = mins * 60;
-    } // END CONSTRUCTOR
+// 	} // fin constructor
+	
+// } // fin slider
 
-    countdown() { 
-        setTimeout('Decrement()', 60); 
-    } 
- 
+// let MonSlider = new Slider();
 
-// Fonction décrémenter qui décrémente la valeur.
-    Decrement() { 
-    if (document.getElementById) { 
-        this.minutes = document.getElementById("minutes"); 
-        this.seconds = document.getElementById("seconds"); 
-        this.minutes.style.textAlign = "center";
-        this.seconds.style.textAlign = "center";
-        // Si il reste moins d une minute on affiche que la valeur en secondes
+
+function initDiaporama(){
+    slideIndex = 0;
+    slides=document.getElementsByClassName("contenuImages");
+    slides[slideIndex].style.opacity=1;
+
+    legendeText=document.querySelector(".legende .legendeText");
+    legendeText.innerText=slides[slideIndex].querySelector(".legendeText").innerText;
+
+    //disable nextPrevBtn if slide count is one
+    if(slides.length<2){
+        let nextPrevBtns=document.querySelector(".leftArrow,.rightArrow");
+        nextPrevBtns.style.display="none";
+        for (i = 0; i < nextPrevBtn.length; i++) {
+            nextPrevBtn[i].style.display="none";
+        }
+    }
+
+   
+}
+initDiaporama();
+
+
+
+function plusSlides(n) {
+    moveSlide(slideIndex+n);
+}
+function moveSlide(n){
+
+    const moveSlideAnimClass={
+          forCurrent:"",
+          forNext:""
+    };
+
+    if(n>slideIndex) {
+        if(n >= slides.length){n=0;}
+        moveSlideAnimClass.forCurrent="moveLeftCurrentSlide";
+        moveSlideAnimClass.forNext="moveLeftNextSlide";
+        slideTextAnimClass="slideTextFromTop";
+    }else if(n<slideIndex){
+        if(n<0){n=slides.length-1;}
+        moveSlideAnimClass.forCurrent="moveRightCurrentSlide";
+        moveSlideAnimClass.forNext="moveRightPrevSlide";
+        slideTextAnimClass="slideTextFromBottom";
+    }
+
+    if(n!=slideIndex){
+        next = slides[n];
+        current=slides[slideIndex];
+        for (i = 0; i < slides.length; i++) {
+            slides[i].className = "contenuImages";
+            slides[i].style.opacity=0;
         
-        if (this.seconds < 59) { 
-            this.seconds.value = this.secs; 
-        } 
-
-        //Afficher les minutes et les secondes getminutes et getseconds sont utilisés pour obtenir : minutes et secondes
-    
-        else { 
-            this.minutes.value = this.getminutes(); 
-            this.seconds.value = this.getseconds(); 
-        } 
-        //Quand il reste moins d une minute, la couleur des minutes et des secondes seront rouges
+        }
+        current.classList.add(moveSlideAnimClass.forCurrent);
+        next.classList.add(moveSlideAnimClass.forNext);
         
-        if (this.mins < 1) { 
-            this.minutes.style.color = "red"; 
-            
-            this.seconds.style.color = "red"; 
-        } 
-        // si les secondes sont égales à 0, la page affiche une alerte pour le dire
-    
-        if (this.mins < 0) { 
-            //   METRE SESSION ECOULEE
-            this.minutes.value = 0; 
-            this.seconds.value = 0; 
-            alert('votre session a expiré');
-            
-        } 
-        //si les secondes sont supérieures à zéro, on les décérementes
-        else { 
-            this.secs--; 
-            setTimeout('Decrement()', 1000); 
-        } 
-        console.log('ici !');
-    } 
-  
-} 
+        slideIndex=n;
+        legendeText.style.display="none";
+        legendeText.className="legendeText "+slideTextAnimClass;
+        legendeText.innerText=slides[n].querySelector(".legendeText").innerText;
+        legendeText.style.display="block";
+    }
 
+}
 
-
-    getminutes() { 
-    
-    //L'instruction return met fin à l'exécution d'une fonction et définit une valeur à renvoyer à la fonction appelante.
-        //  minutes est égal à secondes divisé par 60, arrondi
-        this.mins = Math.floor(this.secs / 60); 
-            return this.mins; 
-        } 
-
-
-        getseconds() { 
-        //L'instruction return met fin à l'exécution d'une fonction et définit une valeur à renvoyer à la fonction appelante.
-    // prendre des minutes restantes (en secondes) du nombre total de secondes restantes
-            
-            return this.secs - Math.round(this.mins * 60); 
-        } 
-
-
-} // End CLASS
-
-let MonTimer = new Timer (20);
-
-MonTimer.Decrement();
-
+function setTimer(){
+    timer=setInterval(function () {
+        plusSlides(1) ;
+    },5000);
+}
+setTimer();
+function playPauseSlides() {
+    const playPauseBtn=document.getElementById("playPause");
+    if(timer==null){
+        setTimer();
+        playPauseBtn.style.backgroundPositionY="0px"
+    }else{
+        clearInterval(timer);
+        timer=null;
+        playPauseBtn.style.backgroundPositionY="-33px"
+    }
+}
