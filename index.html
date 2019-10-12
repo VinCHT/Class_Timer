@@ -1,37 +1,59 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Louer votre vélo à Lyon !"/>
-    <link rel="stylesheet" type="text/css" href=css/style.css />
-    <link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href=css/semantic.min.css>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
- 
-
+    <link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href=css/semantic.min.css>
+    <link rel="stylesheet" type="text/css" href=css/style.css />
+   
     <title>Réservation en libre-service de vélos à Lyon</title>
 </head>
-<body onload="countdown();"> 
+
+<body id = "body">
   
 
 
-  
-                        Temps restant : 
-                        <input class ="ui text container " id="minutes"> 
-                        <input class ="ui text container " id="seconds"> 
-                    
-                        <button class="ui positive button" type="button" id="btn2" onclick="Decrement()" >Réservez</button> <!--Au click on afiche le récap-->
-
-                      
 
 
+    <div class="carouselContainer">
+        <div class="slideShowContainer">
+            
+            <div onclick="plusSlides(-1)" class="nextPrevBtn leftArrow"><span class="arrow arrowLeft"></span></div>
+            <div onclick="plusSlides(1)" class="nextPrevBtn rightArrow"><span class="arrow arrowRight"></span></div>
+            <div class="legende"><p class="legendeText slideTextFromTop"></p></div>
+            <div class="contenuImages">
+                <img src="images/only.jpg" alt="">
+                <p class="legendeText">Réservez votre vélo à Lyon !</p>
+            </div>
+            <div class="contenuImages">
+                <img src="images/image1.png" alt="">
+                <p class="legendeText">Veuillez cliquer sur une station (1/3)</p>
+            </div>
+            <div class="contenuImages">
+                <img src="images/image2.png" alt="">
+                <p class="legendeText">Signez pour valider votre réservation (2/3)</p>
+            </div>
+            <div class="contenuImages">
+                <img src="images/image3.png" alt="">
+                <p class="legendeText">Votre récapitulatif s'affiche (3/3)</p>
+            </div>
+           
+        </div>
+        <div id="playPause" onclick="playPauseSlides()"></div>
+    </div>
 
-    
-    <script src="../timer.js"></script>
+        
+
+
+
+
    
-  
-  
+    <script src="../js/slider.js"></script>
+
  
 </body>
 </html>
